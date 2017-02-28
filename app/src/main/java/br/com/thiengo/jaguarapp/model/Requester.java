@@ -26,5 +26,7 @@ public class Requester {
             JsonHttpRequest.URI,
             requestParams,
             new JsonHttpRequest( presenter ) );
+
+        new VersionRequester(presenter).execute();
     }
 }

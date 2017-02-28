@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -74,6 +75,21 @@ public class Presenter {
             int versionNumber = pinfo.versionCode;
 
             if( actuallyAppVersion > versionNumber
+                    && SPTimer.is24hrsDelayed(activity) ){
+
+                activity.showUpdateAppDialog();
+            }
+        }
+        catch(PackageManager.NameNotFoundException e){}
+    }
+
+    public void showUpdateAppDialog( String actuallyAppVersion ){
+        try{
+            String packageName = getContext().getPackageName();
+            PackageInfo pinfo = getContext().getPackageManager().getPackageInfo(packageName, 0);
+            String versionName = pinfo.versionName;
+
+            if( !actuallyAppVersion.equals(versionName)
                     && SPTimer.is24hrsDelayed(activity) ){
 
                 activity.showUpdateAppDialog();
