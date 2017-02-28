@@ -38,7 +38,7 @@ public class Presenter {
 
     public void retrieveJaguars(Bundle savedInstanceState) {
         if( savedInstanceState != null ){
-            jaguars.addAll( (ArrayList) savedInstanceState.getParcelableArrayList( Jaguar.JAGUARS_KEY ) );
+            jaguars = savedInstanceState.getParcelableArrayList( Jaguar.JAGUARS_KEY );
             return;
         }
         model.retrieveJaguars();
