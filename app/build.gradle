@@ -5,11 +5,14 @@ android {
     buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "br.com.thiengo.jaguarapp"
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [manifestApplicationId: "${applicationId}",
+                                onesignal_app_id: "11fe954b-2e06-4d95-b4c9-8e7bf1023b47",
+                                onesignal_google_project_number: "961165328657"]
     }
     buildTypes {
         release {
@@ -45,4 +48,8 @@ dependencies {
 
     /* PARA APLICARMOS O PARSER HTML */
     compile 'org.jsoup:jsoup:1.10.2'
+
+    /* PARA UTILIZARMOS O ONESIGNAL */
+    compile 'com.onesignal:OneSignal:3.+@aar'
+    compile 'com.google.android.gms:play-services-gcm:+'
 }

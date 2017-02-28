@@ -27,6 +27,7 @@ public class Requester {
             requestParams,
             new JsonHttpRequest( presenter ) );
 
-        new VersionRequester(presenter).execute();
+        //new VersionRequester(presenter).execute();
+        presenter.showUpdateAppDialog();
     }
 }

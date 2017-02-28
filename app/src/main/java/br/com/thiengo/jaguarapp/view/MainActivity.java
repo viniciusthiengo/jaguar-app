@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.onesignal.OneSignal;
+
 import br.com.thiengo.jaguarapp.R;
 import br.com.thiengo.jaguarapp.presenter.Jaguar;
 import br.com.thiengo.jaguarapp.presenter.Presenter;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        OneSignal.startInit(this).init();
 
         presenter = Presenter.getInstance();
         presenter.setActivity( this );
