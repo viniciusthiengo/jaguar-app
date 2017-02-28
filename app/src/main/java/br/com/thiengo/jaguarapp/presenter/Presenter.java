@@ -1,6 +1,10 @@
 package br.com.thiengo.jaguarapp.presenter;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -8,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.thiengo.jaguarapp.model.Requester;
+import br.com.thiengo.jaguarapp.model.SPTimer;
 import br.com.thiengo.jaguarapp.view.MainActivity;
+import me.drakeet.materialdialog.MaterialDialog;
 
 
 public class Presenter {
@@ -59,5 +65,20 @@ public class Presenter {
 
     public ArrayList<Jaguar> getJaguars() {
         return jaguars;
+    }
+
+    public void showUpdateAppDialog( int actuallyAppVersion ){
+        try{
+            String packageName = getContext().getPackageName();
+            PackageInfo pinfo = getContext().getPackageManager().getPackageInfo(packageName, 0);
+            int versionNumber = pinfo.versionCode;
+
+            if( actuallyAppVersion > versionNumber
+                    && SPTimer.is24hrsDelayed(activity) ){
+
+                activity.showUpdateAppDialog();
+            }
+        }
+        catch(PackageManager.NameNotFoundException e){}
     }
 }

@@ -39,4 +39,7 @@ dependencies {
     /* PARA COMUNICAÇÃO COM BACKEND WEB E PARSER JSON */
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.google.code.gson:gson:2.7'
+
+    /* PARA USO DO MATERIAL DIALOG */
+    compile 'me.drakeet.materialdialog:library:1.3.1'
 }

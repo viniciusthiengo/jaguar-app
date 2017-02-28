@@ -1,10 +1,13 @@
 package br.com.thiengo.jaguarapp.model;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,15 @@ public class JsonHttpRequest extends JsonHttpResponseHandler {
     @Override
     public void onStart() {
         presenter.showProgressBar( true );
+    }
+
+    @Override
+    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+        try{
+            presenter.showUpdateAppDialog( response.getInt("version") );
+            onSuccess(statusCode, headers, response.getJSONArray("jaguars"));
+        }
+        catch(JSONException e){}
     }
 
     @Override
