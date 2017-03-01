@@ -9,7 +9,6 @@ import com.onesignal.OSNotificationReceivedResult;
 
 import org.json.JSONException;
 
-import br.com.thiengo.jaguarapp.presenter.Presenter;
 import br.com.thiengo.jaguarapp.presenter.PresenterLB;
 
 
@@ -18,7 +17,7 @@ public class CustomNotificationExtenderService extends NotificationExtenderServi
     protected boolean onNotificationProcessing(OSNotificationReceivedResult notification) {
         try {
             Log.i("log", "Version: " + notification.payload.additionalData.getInt("version") );
-            SPTimer.saveVersion(this, notification.payload.additionalData.getInt("version") );
+            SPLocalBase.saveVersion(this, notification.payload.additionalData.getInt("version") );
 
             Intent intent = new Intent( PresenterLB.FILTER_KEY );
             LocalBroadcastManager.getInstance( this ).sendBroadcast( intent );

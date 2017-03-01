@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.thiengo.jaguarapp.model.Requester;
-import br.com.thiengo.jaguarapp.model.SPTimer;
+import br.com.thiengo.jaguarapp.model.SPLocalBase;
 import br.com.thiengo.jaguarapp.view.MainActivity;
 
 
@@ -75,49 +75,48 @@ public class Presenter {
         return jaguars;
     }
 
-    public void showUpdateAppDialog( int actuallyAppVersion ){
-        try{
+    private PackageInfo packageInfo(){
+        PackageInfo pinfo = null;
+        try {
             String packageName = getContext().getPackageName();
-            PackageInfo pinfo = getContext().getPackageManager().getPackageInfo(packageName, 0);
-            int versionNumber = pinfo.versionCode;
-
-            if( actuallyAppVersion > versionNumber
-                    && SPTimer.is24hrsDelayed(activity) ){
-
-                activity.showUpdateAppDialog();
-            }
+            pinfo = getContext().getPackageManager().getPackageInfo(packageName, 0);
         }
         catch(PackageManager.NameNotFoundException e){}
+
+        return pinfo;
+    }
+
+    public void showUpdateAppDialog( int actuallyAppVersion ){
+        int versionNumber = packageInfo().versionCode;
+
+        if( actuallyAppVersion > versionNumber
+                && SPLocalBase.is24hrsDelayed(activity) ){
+
+            activity.showUpdateAppDialog();
+        }
     }
 
     public void showUpdateAppDialog( String actuallyAppVersion ){
-        try{
-            String packageName = getContext().getPackageName();
-            PackageInfo pinfo = getContext().getPackageManager().getPackageInfo(packageName, 0);
-            String versionName = pinfo.versionName;
+        String versionName = packageInfo().versionName;
 
-            if( !actuallyAppVersion.equals(versionName)
-                    && SPTimer.is24hrsDelayed(activity) ){
+        if( !actuallyAppVersion.equals(versionName)
+                && SPLocalBase.is24hrsDelayed(activity) ){
 
-                activity.showUpdateAppDialog();
-            }
+            activity.showUpdateAppDialog();
         }
-        catch(PackageManager.NameNotFoundException e){}
     }
 
     public void showUpdateAppDialog(){
-        try{
-            String packageName = getContext().getPackageName();
-            PackageInfo pinfo = getContext().getPackageManager().getPackageInfo(packageName, 0);
-            int versionNumber = pinfo.versionCode;
-            int versionToCompare = SPTimer.getVersion(getContext());
+        int versionNumber = packageInfo().versionCode;
+        int versionToCompare = SPLocalBase.getVersion(getContext());
 
-            if( versionToCompare > versionNumber
-                    && SPTimer.is24hrsDelayed(activity) ){
+        if( versionToCompare > versionNumber ){
+                //&& SPTimer.is24hrsDelayed(activity) ){
 
-                activity.showUpdateAppDialog();
-            }
+            activity.showUpdateAppDialog();
         }
-        catch(PackageManager.NameNotFoundException e){}
     }
 }
+
+
+

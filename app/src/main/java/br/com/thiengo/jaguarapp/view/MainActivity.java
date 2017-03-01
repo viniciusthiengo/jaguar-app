@@ -26,13 +26,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        OneSignal.startInit(this).init();
-
         presenter = Presenter.getInstance();
         presenter.setActivity( this );
         initRecycler();
 
         presenter.retrieveJaguars( savedInstanceState );
+
+        OneSignal.startInit(this).init();
+        presenter.showUpdateAppDialog();
     }
 
     @Override
@@ -64,20 +65,24 @@ public class MainActivity extends AppCompatActivity {
     private MaterialDialog mMaterialDialog;
     public void showUpdateAppDialog(){
         mMaterialDialog = new MaterialDialog(this)
-            .setTitle("Nova versão App")
+            .setTitle("Nova versão App - Push Notification")
             .setMessage("Está disponível a nova versão do aplicativo Jaguar App, clique no botão abaixo para realizar a atualização. Essa nova versão é mais leve e segura.")
             .setCanceledOnTouchOutside(false)
             .setPositiveButton("Atualizar", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String packageName = getPackageName();
+                    Intent intent;
+
                     try {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=br.thiengocalopsita")));
-                        //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)));
+                        //intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
+                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=br.thiengocalopsita"));
+                        startActivity( intent );
                     }
                     catch (android.content.ActivityNotFoundException anfe) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=br.thiengocalopsita")));
-                        //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)));
+                        //intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName));
+                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=br.thiengocalopsita"));
+                        startActivity( intent );
                     }
                 }
             })

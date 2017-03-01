@@ -1,7 +1,5 @@
 package br.com.thiengo.jaguarapp.model;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -53,7 +51,9 @@ public class JsonHttpRequest extends JsonHttpResponseHandler {
             }
             catch(JSONException e){}
         }
+
         presenter.updateListaRecycler( jaguars );
+        //new VersionRequester(presenter).execute();
     }
 
     @Override

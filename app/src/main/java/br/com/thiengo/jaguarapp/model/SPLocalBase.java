@@ -2,13 +2,12 @@ package br.com.thiengo.jaguarapp.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 /**
  * Created by viniciusthiengo on 27/02/17.
  */
 
-public class SPTimer {
+public class SPLocalBase {
     private static final String PREF = "PREFERENCES";
     private static final String TIME_KEY = "time";
     private static final String VERSION_KEY = "version";
